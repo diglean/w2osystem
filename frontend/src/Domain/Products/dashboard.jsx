@@ -7,24 +7,57 @@ import Button from "../../Components/Button";
 import IosShareIcon from "@mui/icons-material/IosShare";
 
 import styles from "./styles/dashboard.module.css";
+import ModalWithdraw from "./Modal/ModalWithdraw";
 
-const ROOT = "http://localhost:8000";
+const ROOT = "http://localhost:8000/api";
 
 const Dashboard = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [options, setOptions] = useState([{}]);
+  const [productSelected, setProductSelected] = useState(null);
   const [dataTableData, setdataTableData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch(ROOT + `/api/product/list?page=${currentPage}`)
+    fetch(ROOT + `/product/list?page=${currentPage}`)
       .then((res) => res.json())
       .then((data) => {
         setdataTableData(data);
       });
-  }, [currentPage]);
+
+    fetch(ROOT + "/product/withdraw/list")
+      .then((res) => res.json())
+      .then((data) => {
+        setOptions(data);
+      });
+  }, []);
+
+  const toggleModal = (data) => {
+    if (data === true) {
+      fetch(ROOT + `/product/withdraw`, {
+        method: "POST",
+        body: JSON.stringify({ id: productSelected }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // if (data.success) {
+          //   window.location.reload();
+          // }
+        });
+    }
+    setOpenModal(!openModal);
+  };
+
+  const handleChangeModal = (data) => {
+    setProductSelected(data);
+  };
 
   const action = (
     <div className={styles.action_buttons}>
-      <Button variant="contained">
+      <Button variant="contained" onClick={toggleModal}>
         <IosShareIcon />
       </Button>
     </div>
@@ -32,6 +65,12 @@ const Dashboard = () => {
 
   return (
     <div>
+      <ModalWithdraw
+        open={openModal}
+        toggleModal={toggleModal}
+        cbHandleChange={handleChangeModal}
+        options={options}
+      />
       <NavBar />
       <h1>Dashboard</h1>
       <span>Produtos cadastrados</span>

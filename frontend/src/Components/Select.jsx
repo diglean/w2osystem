@@ -7,8 +7,6 @@ import Select from "@mui/material/Select";
 
 import styles from "./styles/Select.module.css";
 
-import { useState } from "react";
-
 const BasicSelect = ({ label, value, options, cbHandleChange }) => {
   const handleChange = (e) => {
     return cbHandleChange(e.target.value);

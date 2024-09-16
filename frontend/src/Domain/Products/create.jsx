@@ -9,6 +9,7 @@ import Button from "../../Components/Button.jsx";
 import styles from "./styles/create.module.css";
 import { Typography } from "@mui/material";
 import BasicDatePicker from "../../Components/Datepicker.jsx";
+import useToast from "../../Hooks/useToast.jsx";
 
 const host = "http://localhost:8000/api";
 
@@ -22,6 +23,8 @@ const Create = () => {
 
   const [options, setOptions] = useState([{}]);
 
+  const { toastSuccess, toastError } = useToast();
+
   useEffect(() => {
     fetch(`${host}/category/list`)
       .then((res) => res.json())
@@ -31,6 +34,7 @@ const Create = () => {
   const handleCreateProduct = () => {
     let action = "create";
     let method = "POST";
+    let toastMessage = "Produto criado com sucesso!";
 
     let body = {
       name,
@@ -43,6 +47,7 @@ const Create = () => {
     if (id) {
       action = "update";
       method = "PUT";
+      toastMessage = "Produto atualizado com sucesso!";
 
       body.id = id;
     }
@@ -57,6 +62,7 @@ const Create = () => {
       .then((res) => res.json())
       .then((data) => {
         setId(data.id);
+        toastSuccess(toastMessage);
       });
   };
 
@@ -94,7 +100,7 @@ const Create = () => {
               label="Nome"
               name="name"
               required
-              maxLength={15}
+              maxLength={30}
               cbValueChanged={handleChangeName}
             />
             <BasicSelect
@@ -107,6 +113,7 @@ const Create = () => {
               label="Descrição"
               name="description"
               required
+              maxLength={255}
               multiline
               cbValueChanged={handleChangeDescription}
             />
