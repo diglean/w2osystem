@@ -1,0 +1,50 @@
+.main {
+  margin: 0 10px;
+}
+
+.main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.main table, th, td {
+  border: 1px solid #ddd;
+}
+
+.main th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+.main th {
+  background-color: #f2f2f2;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  background-color: #eee;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
