@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\ProductLog\Enum;
+namespace Domain\ProductLog\Enums;
 
 enum ProductLogAction: string
 {

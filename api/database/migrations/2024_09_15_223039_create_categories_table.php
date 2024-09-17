@@ -13,9 +13,9 @@ return new class extends Migration
         DB::unprepared(
           <<<SQL
           CREATE TABLE `categories` (
-            `id` TINYINT NOT NULL AUTO_INCREMENT,
-            `name` VARCHAR(30) NOT NULL,
-            `active` ENUM('no', 'yes'),
+            `id` SMALLINT NOT NULL AUTO_INCREMENT,
+            `name` VARCHAR(30) NOT NULL UNIQUE,
+            `active` ENUM('no', 'yes') NOT NULL DEFAULT 'yes',
             PRIMARY KEY (`id`)
           );
           SQL

@@ -15,7 +15,7 @@ return new class extends Migration
           CREATE TABLE `products` (
             `id` SMALLINT NOT NULL AUTO_INCREMENT,
             `name` VARCHAR(30) NOT NULL,
-            `category_id` TINYINT NULL,
+            `category_id` SMALLINT NULL,
             `description` VARCHAR(255) NULL,
             `price` FLOAT(8,2) NULL,
             `overdue_dt` DATETIME NULL,
@@ -29,6 +29,12 @@ return new class extends Migration
             ON UPDATE NO ACTION
           );
           SQL,
+        );
+
+        DB::unprepared(
+            <<<SQL
+            CREATE INDEX idx_category_id ON products (category_id);
+            SQL,
         );
     }
 

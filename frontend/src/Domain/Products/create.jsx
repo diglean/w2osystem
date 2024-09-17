@@ -13,7 +13,7 @@ import moment from "moment";
 
 import styles from "./styles/create.module.css";
 
-const host = "http://localhost:8000/api";
+import ROOT from "../../root";
 
 const Create = () => {
   const [id, setId] = useState(null);
@@ -28,20 +28,16 @@ const Create = () => {
   const { toastSuccess, toastError } = useToast();
 
   useEffect(() => {
-    fetch(`${host}/category/list`)
-      .then((res) => res.json())
-      .then((data) => setOptions(data));
+    // fetch(`${ROOT}/category/list`)
+    //   .then((res) => res.json())
+    //   .then((data) => setOptions(data));
   }, []);
 
   const handleCreateProduct = () => {
-    if (overdueDt === "") {
-      const momentOverdueDt = moment(overdueDt);
-
-      if (momentOverdueDt.isBefore(moment().startOf("day"))) {
-        toastError("Data de vencimento inválida!");
-        return;
-      }
+    if (!validateData()) {
+      return false;
     }
+
     let action = "create";
     let method = "POST";
     let toastMessage = "Produto criado com sucesso!";
@@ -62,18 +58,34 @@ const Create = () => {
       body.id = id;
     }
 
-    fetch(`${host}/product/${action}`, {
-      method,
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setId(data.id);
-        toastSuccess(toastMessage);
-      });
+    // fetch(`${ROOT}/product/${action}`, {
+    //   method,
+    //   body: JSON.stringify(body),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setId(data.id);
+    //     toastSuccess(toastMessage);
+    //   });
+  };
+
+  const validateData = () => {
+    const momentOverdueDt = moment(overdueDt);
+
+    if (momentOverdueDt.isBefore(moment().startOf("day"))) {
+      toastError("Data de vencimento inválida!");
+      return;
+    }
+
+    if (price !== "") {
+      if (price < 0) {
+        toastError("Preço inválido!");
+        return;
+      }
+    }
   };
 
   const handleChangeName = (value) => {
@@ -89,7 +101,8 @@ const Create = () => {
   };
 
   const handleChangePrice = (value) => {
-    let newValue = value.replace(/\D/g, "");
+    let newValue = value.replace(/[0-9]/g, "");
+    newValue = newValue.replace(/\D/g, "");
     newValue = newValue.replace(/(\d)(\d{2})$/, "$1,$2");
     newValue = newValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
     setPrice(newValue);

@@ -28,6 +28,12 @@ return new class extends Migration
           );
           SQL,
         );
+
+        DB::unprepared(
+            <<<SQL
+            CREATE INDEX idx_product_id ON product_log (product_id);
+            SQL,
+        );
     }
 
     /**

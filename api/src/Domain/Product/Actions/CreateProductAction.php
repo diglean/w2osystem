@@ -5,7 +5,7 @@ namespace Domain\Product\Actions;
 use Domain\Product\DataTransferObject\CreateProductData;
 use Domain\Product\Models\Product;
 use Domain\ProductLog\Actions\CreateProductLogAction;
-use Domain\ProductLog\Enum\ProductLogAction;
+use Domain\ProductLog\Enums\ProductLogAction;
 
 class CreateProductAction
 {
@@ -28,7 +28,7 @@ class CreateProductAction
         /**
          * Cria o log de produto
          */
-        $this->createProductLogAction->execute($createdProduct->id);
+        $this->createProductLogAction->execute($createdProduct->id, ProductLogAction::Deposit);
 
         return $createdProduct;
     }

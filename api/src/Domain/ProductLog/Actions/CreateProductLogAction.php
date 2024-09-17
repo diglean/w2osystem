@@ -1,7 +1,7 @@
 <?php
 
 namespace Domain\ProductLog\Actions;
-use Domain\ProductLog\Enum\ProductLogAction;
+use Domain\ProductLog\Enums\ProductLogAction;
 use Domain\ProductLog\Models\ProductLog;
 use Illuminate\Support\Carbon;
 
@@ -12,11 +12,11 @@ class CreateProductLogAction
     ) {
     }
 
-    public function execute(int $product_id): void
+    public function execute(int $product_id, ProductLogAction $action): void
     {
         $this->productLogModel->create([
           'product_id' => $product_id,
-          'action' => ProductLogAction::Deposit,
+          'action' => $action,
           'dthr' => Carbon::now(),
         ]);
     }

@@ -3,7 +3,7 @@
 namespace Domain\Product\Actions;
 
 use Domain\ProductLog\Actions\CreateProductLogAction;
-use Domain\ProductLog\Enum\ProductLogAction;
+use Domain\ProductLog\Enums\ProductLogAction;
 
 class WithdrawProductAction
 {

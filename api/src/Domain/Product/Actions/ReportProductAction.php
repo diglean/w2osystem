@@ -2,9 +2,7 @@
 
 namespace Domain\Product\Actions;
 
-use Domain\Product\DataTransferObject\CreateProductData;
 use Domain\Product\Models\Product;
-use Domain\ProductLog\Actions\CreateProductLogAction;
 use Illuminate\Support\Facades\DB;
 
 class ReportProductAction

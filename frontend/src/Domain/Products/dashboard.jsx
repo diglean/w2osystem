@@ -9,7 +9,7 @@ import useToast from "../../Hooks/useToast.jsx";
 import styles from "./styles/dashboard.module.css";
 import ModalWithdraw from "./Modal/ModalWithdraw";
 
-const ROOT = "http://localhost:8000/api";
+import ROOT from "../../root";
 
 const Dashboard = () => {
   const [openModal, setOpenModal] = useState(false);

@@ -4,7 +4,7 @@ import NavBar from "../../Components/NavBar.jsx";
 
 import styles from "./styles/report.module.css";
 
-const ROOT = "http://localhost:8000/api";
+import ROOT from "../../root";
 
 const Report = () => {
   const [topTenProducts, setTopTenProducts] = useState(null);

@@ -7,6 +7,7 @@ import Dashboard from "./Domain/Products/dashboard";
 import Create from "./Domain/Products/create";
 import "./App.css";
 import Report from "./Domain/Products/report";
+import History from "./Domain/ProductLog/history";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Create />} />
           <Route path="/product/list" element={<Dashboard />} />
           <Route path="/product/report" element={<Report />} />
+          <Route path="/product-log/history" element={<History />} />
         </Routes>
       </Router>
     </div>
