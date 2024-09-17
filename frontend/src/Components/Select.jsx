@@ -20,7 +20,7 @@ const BasicSelect = ({ label, value, options, cbHandleChange }) => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={value || ""}
-          label="Age"
+          label={label}
           onChange={handleChange}
         >
           {options.map((item) => {

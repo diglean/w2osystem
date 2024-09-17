@@ -3,7 +3,7 @@ import styles from "./styles/DataTable.module.css";
 
 import { fmtoDt } from "../Library/format";
 
-const DataTable = ({ data, cbChangePage, action }) => {
+const DataTable = ({ data, cbChangePage }) => {
   const handlePageChange = (page) => {
     console.log(page);
     cbChangePage(page);
@@ -21,7 +21,6 @@ const DataTable = ({ data, cbChangePage, action }) => {
             <th>{data.columns[3]}</th>
             <th>{data.columns[4]}</th>
             <th>{data.columns[5]}</th>
-            {action && <th>Ação</th>}
           </tr>
         </thead>
         <tbody>
@@ -33,9 +32,12 @@ const DataTable = ({ data, cbChangePage, action }) => {
                 <td>{item.category.name}</td>
                 <td>{item.description}</td>
                 <td>R$ {item.price}</td>
-                <td>{fmtoDt(item.overdue_dt)}</td>
+                <td>
+                  {item.overdue_dt
+                    ? fmtoDt(item.overdue_dt)
+                    : "Sem data especificada"}
+                </td>
                 <td>{fmtoDt(item.created_at)}</td>
-                {action && <td>{action}</td>}
               </tr>
             );
           })}

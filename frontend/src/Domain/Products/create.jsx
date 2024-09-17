@@ -112,7 +112,6 @@ const Create = () => {
             <Input
               label="Descrição"
               name="description"
-              required
               maxLength={255}
               multiline
               cbValueChanged={handleChangeDescription}

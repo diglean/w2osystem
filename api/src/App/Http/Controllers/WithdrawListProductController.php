@@ -4,7 +4,6 @@ namespace Src\App\Http\Controllers;
 
 use Domain\Product\Actions\WithdrawListProductAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
-use Illuminate\Http\Request;
 
 class WithdrawListProductController
 {

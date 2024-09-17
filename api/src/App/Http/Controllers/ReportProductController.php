@@ -2,10 +2,11 @@
 
 namespace Src\App\Http\Controllers;
 
-use Domain\Category\Actions\ListCategoryAction;
+use Domain\Product\Actions\ReportProductAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
+use Illuminate\Http\Request;
 
-class ListCategoryController
+class ReportProductController
 {
   public function __construct(
     private readonly Response $response
@@ -13,7 +14,8 @@ class ListCategoryController
   }
 
   public function __invoke(
-      ListCategoryAction $action,
+      Request $request,
+      ReportProductAction $action,
   ) {
       $response = $action->execute();
 

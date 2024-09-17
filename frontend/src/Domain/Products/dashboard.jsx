@@ -4,7 +4,7 @@ import DataTable from "../../Components/DataTable";
 import NavBar from "../../Components/NavBar";
 import Button from "../../Components/Button";
 
-import IosShareIcon from "@mui/icons-material/IosShare";
+import useToast from "../../Hooks/useToast.jsx";
 
 import styles from "./styles/dashboard.module.css";
 import ModalWithdraw from "./Modal/ModalWithdraw";
@@ -13,10 +13,12 @@ const ROOT = "http://localhost:8000/api";
 
 const Dashboard = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [options, setOptions] = useState([{}]);
+  const [options, setOptions] = useState(null);
   const [productSelected, setProductSelected] = useState(null);
   const [dataTableData, setdataTableData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const { toastSuccess } = useToast();
 
   useEffect(() => {
     fetch(ROOT + `/product/list?page=${currentPage}`)
@@ -30,7 +32,7 @@ const Dashboard = () => {
       .then((data) => {
         setOptions(data);
       });
-  }, []);
+  }, [currentPage]);
 
   const toggleModal = (data) => {
     if (data === true) {
@@ -42,12 +44,12 @@ const Dashboard = () => {
         },
       })
         .then((res) => res.json())
-        .then((data) => {
-          // if (data.success) {
-          //   window.location.reload();
-          // }
+        .then(() => {
+          setProductSelected(null);
+          toastSuccess("Produto retirado com sucesso!");
         });
     }
+
     setOpenModal(!openModal);
   };
 
@@ -55,22 +57,17 @@ const Dashboard = () => {
     setProductSelected(data);
   };
 
-  const action = (
-    <div className={styles.action_buttons}>
-      <Button variant="contained" onClick={toggleModal}>
-        <IosShareIcon />
-      </Button>
-    </div>
-  );
-
   return (
     <div>
-      <ModalWithdraw
-        open={openModal}
-        toggleModal={toggleModal}
-        cbHandleChange={handleChangeModal}
-        options={options}
-      />
+      {options && (
+        <ModalWithdraw
+          open={openModal}
+          value={productSelected}
+          toggleModal={toggleModal}
+          cbHandleChange={handleChangeModal}
+          options={options}
+        />
+      )}
       <NavBar />
       <h1>Dashboard</h1>
       <span>Produtos cadastrados</span>
@@ -78,9 +75,14 @@ const Dashboard = () => {
         <DataTable
           data={dataTableData}
           cbChangePage={setCurrentPage}
-          action={action}
+          currentPage={currentPage}
         />
       )}
+      <div className={styles.action_buttons}>
+        <Button variant="contained" onClick={toggleModal}>
+          <span>Retirar produto</span>
+        </Button>
+      </div>
     </div>
   );
 };

@@ -9,9 +9,9 @@ class CreateProductData extends Data
     public function __construct(
       public readonly string $name,
       public readonly int $category_id,
-      public readonly string $description,
       public readonly string $price,
-      public readonly string $overdue_dt,
+      public readonly ?string $description,
+      public readonly ?string $overdue_dt,
     ) {
     }
 

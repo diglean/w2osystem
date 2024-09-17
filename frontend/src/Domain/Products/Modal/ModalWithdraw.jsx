@@ -1,6 +1,20 @@
-import { Box, MenuItem, Modal } from "@mui/material";
-import Select from "../../../Components/Select";
+import { Box, Modal } from "@mui/material";
 import Button from "../../../Components/Button";
+import BasicSelect from "../../../Components/Select";
+
+import styles from "./styles/ModalWithdraw.module.css";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const ModalWithdraw = ({
   open,
@@ -10,7 +24,7 @@ const ModalWithdraw = ({
   options,
 }) => {
   const handleChange = (e) => {
-    return cbHandleChange(e.target.value);
+    return cbHandleChange(e);
   };
 
   return (
@@ -21,29 +35,26 @@ const ModalWithdraw = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box>
+        <Box sx={style}>
           <h1>Retirar produto</h1>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={value || ""}
-            label="Age"
-            onChange={handleChange}
-          >
-            {options.map((item) => {
-              return (
-                <MenuItem key={item.id} value={item.id}>
-                  {item.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
-          <Button type="submit" variant="contained" onClick={toggleModal}>
-            Cancelar
-          </Button>
-          <Button type="submit" variant="contained" onClick={toggleModal(true)}>
-            Retirar
-          </Button>
+          <BasicSelect
+            options={options}
+            value={value}
+            label="Produto"
+            cbHandleChange={handleChange}
+          />
+          <div className={styles.main_buttons}>
+            <Button type="submit" variant="contained" onClick={toggleModal}>
+              Cancelar
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={() => toggleModal(true)}
+            >
+              Retirar
+            </Button>
+          </div>
         </Box>
       </Modal>
     </div>
