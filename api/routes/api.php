@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Src\App\Http\Controllers\CreateProductController;
+use Src\App\Http\Controllers\Product\CreateProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +15,4 @@ use Src\App\Http\Controllers\CreateProductController;
 |
 */
 
-Route::post('api/product/create', [CreateProductController::class, '__invoke']);
+// Route::post('api/product/create', [CreateProductController::class, '__invoke']);

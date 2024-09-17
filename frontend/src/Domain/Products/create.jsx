@@ -1,15 +1,17 @@
-import Form from "../../Components/Form.jsx";
-import Input from "../../Components/Input.jsx";
 import { Fragment, useEffect, useState } from "react";
 
+import Form from "../../Components/Form.jsx";
+import Input from "../../Components/Input.jsx";
 import NavBar from "../../Components/NavBar.jsx";
 import BasicSelect from "../../Components/Select.jsx";
 import Button from "../../Components/Button.jsx";
+import BasicDatePicker from "../../Components/Datepicker.jsx";
+
+import { Typography } from "@mui/material";
+import useToast from "../../Hooks/useToast.jsx";
+import moment from "moment";
 
 import styles from "./styles/create.module.css";
-import { Typography } from "@mui/material";
-import BasicDatePicker from "../../Components/Datepicker.jsx";
-import useToast from "../../Hooks/useToast.jsx";
 
 const host = "http://localhost:8000/api";
 
@@ -32,6 +34,14 @@ const Create = () => {
   }, []);
 
   const handleCreateProduct = () => {
+    if (overdueDt === "") {
+      const momentOverdueDt = moment(overdueDt);
+
+      if (momentOverdueDt.isBefore(moment().startOf("day"))) {
+        toastError("Data de vencimento inválida!");
+        return;
+      }
+    }
     let action = "create";
     let method = "POST";
     let toastMessage = "Produto criado com sucesso!";

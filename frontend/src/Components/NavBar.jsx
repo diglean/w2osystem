@@ -13,6 +13,9 @@ const NavBar = () => {
         <li>
           <a href="/product/report">Relatório de produtos</a>
         </li>
+        <li>
+          <a href="/product-log/list">Histórico de depósito/retirada</a>
+        </li>
       </ul>
     </div>
   );

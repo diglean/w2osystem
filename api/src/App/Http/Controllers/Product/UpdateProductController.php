@@ -1,7 +1,6 @@
 <?php
 
-namespace Src\App\Http\Controllers;
-
+namespace Src\App\Http\Controllers\Product;
 
 use Domain\Product\Actions\UpdateProductAction;
 use Domain\Product\DataTransferObject\UpdateProductData;

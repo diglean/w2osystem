@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\App\Http\Controllers;
+namespace Src\App\Http\Controllers\Product;
 
 use Domain\Product\Actions\CreateProductAction;
 use Domain\Product\DataTransferObject\CreateProductData;

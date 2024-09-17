@@ -2,13 +2,13 @@
 
 namespace Routes\Domain\Product;
 
-use Src\App\Http\Controllers\CreateProductController;
+use Src\App\Http\Controllers\Product\CreateProductController;
 use Illuminate\Support\Facades\Route;
-use Src\App\Http\Controllers\ListProductController;
-use Src\App\Http\Controllers\ReportProductController;
-use Src\App\Http\Controllers\UpdateProductController;
-use Src\App\Http\Controllers\WithdrawListProductController;
-use Src\App\Http\Controllers\WithdrawProductController;
+use Src\App\Http\Controllers\Product\ListProductController;
+use Src\App\Http\Controllers\Product\ReportProductController;
+use Src\App\Http\Controllers\Product\UpdateProductController;
+use Src\App\Http\Controllers\Product\WithdrawListProductController;
+use Src\App\Http\Controllers\Product\WithdrawProductController;
 
 Route::post('api/product/create', [CreateProductController::class, '__invoke']);
 Route::put('api/product/update', [UpdateProductController::class, '__invoke']);

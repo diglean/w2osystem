@@ -1,12 +1,12 @@
 <?php
 
-namespace Src\App\Http\Controllers;
+namespace Src\App\Http\Controllers\Product;
 
-use Domain\Product\Actions\ReportProductAction;
+use Domain\Product\Actions\ListProductAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
 use Illuminate\Http\Request;
 
-class ReportProductController
+class ListProductController
 {
   public function __construct(
     private readonly Response $response
@@ -14,8 +14,7 @@ class ReportProductController
   }
 
   public function __invoke(
-      Request $request,
-      ReportProductAction $action,
+      ListProductAction $action,
   ) {
       $response = $action->execute();
 

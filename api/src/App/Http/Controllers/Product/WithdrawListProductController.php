@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\App\Http\Controllers;
+namespace Src\App\Http\Controllers\Product;
 
-use Domain\Category\Actions\ListCategoryAction;
+use Domain\Product\Actions\WithdrawListProductAction;
 use Illuminate\Contracts\Routing\ResponseFactory as Response;
 
-class ListCategoryController
+class WithdrawListProductController
 {
   public function __construct(
     private readonly Response $response
@@ -13,7 +13,7 @@ class ListCategoryController
   }
 
   public function __invoke(
-      ListCategoryAction $action,
+      WithdrawListProductAction $action,
   ) {
       $response = $action->execute();
 
