@@ -1,23 +1,22 @@
 <?php
 
 namespace Domain\Product\Actions;
+
+use Domain\ProductLog\Actions\CreateProductLogAction;
 use Domain\ProductLog\Enum\ProductLogAction;
-use Domain\ProductLog\Models\ProductLog;
-use Illuminate\Support\Carbon;
 
 class WithdrawProductAction
 {
   public function __construct(
-    public ProductLog $productModel,
+    public CreateProductLogAction $createProductLogAction,
   ) {
   }
 
   public function execute(int $product_id)
   {
-      $this->productModel->create([
-        'product_id' => $product_id,
-        'action' => ProductLogAction::Withdrawal,
-        'dthr' => Carbon::now(),
-      ]);
+      /**
+       * Cria o log de produto com a ação de retirada.
+       */
+      $this->createProductLogAction->execute($product_id, ProductLogAction::Withdrawal);
   }
 }

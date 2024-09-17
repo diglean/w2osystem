@@ -21,6 +21,10 @@ class WithdrawProductController
   ) {
       $data = $request->all();
 
+      /**
+       * São poucos dados então não acho que
+       * valha a pena fazer um DTO apenas para esse caso
+       */
       $validator = Validator::make(
         data: $data,
         rules: ['id' => ['required', 'integer', 'min:1']],

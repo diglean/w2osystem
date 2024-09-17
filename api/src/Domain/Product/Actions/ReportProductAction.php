@@ -16,6 +16,9 @@ class ReportProductAction
 
     public function execute(): array
     {
+        /**
+         * Top 10 produtos
+         */
         $topTenProducts = DB::select(
           <<<SQL
           SELECT
@@ -29,8 +32,14 @@ class ReportProductAction
           SQL,
         );
 
+        /**
+         * Quantidade de produtos
+         */
         $qtyProducts = $this->productModel->count();
 
+        /**
+         * Top 3 categorias
+         */
         $topThreeCategories = DB::select(
           <<<SQL
           SELECT

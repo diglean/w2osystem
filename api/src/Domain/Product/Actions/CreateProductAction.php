@@ -5,6 +5,7 @@ namespace Domain\Product\Actions;
 use Domain\Product\DataTransferObject\CreateProductData;
 use Domain\Product\Models\Product;
 use Domain\ProductLog\Actions\CreateProductLogAction;
+use Domain\ProductLog\Enum\ProductLogAction;
 
 class CreateProductAction
 {
@@ -24,11 +25,17 @@ class CreateProductAction
             'overdue_dt' => $data->overdue_dt,
         ]);
 
+        /**
+         * Cria o log de produto
+         */
         $this->createProductLogAction->execute($createdProduct->id);
 
         return $createdProduct;
     }
 
+    /**
+     * Formata o preço 1.500,00 -> 1500.00
+     */
 	protected function formatPrice(string $price): string
 	{
 		if ( ! is_null($price)) {

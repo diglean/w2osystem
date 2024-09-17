@@ -18,6 +18,10 @@ class CreateProductController
         Request $request,
         CreateProductAction $action,
     ) {
+        /**
+         * Valida os dados da request.
+         * As regras estão dentro de CreateProductData
+         */
         $data = CreateProductData::from($request->all());
 
         $response = $action->execute($data);

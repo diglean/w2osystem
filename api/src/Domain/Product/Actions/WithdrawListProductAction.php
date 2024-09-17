@@ -12,6 +12,9 @@ class WithdrawListProductAction
 
   public function execute()
   {
+      /**
+       * Retorna os produtos que estão disponíveis para retirada
+       */
       return $this->productModel->get();
   }
 }

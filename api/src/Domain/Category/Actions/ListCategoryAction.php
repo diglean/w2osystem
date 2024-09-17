@@ -13,6 +13,9 @@ class ListCategoryAction
   ) {
   }
 
+  /**
+   * Lista todas as categorias ativas
+   */
   public function execute(): array|Collection
   {
       return $this->categoryModel->where('active', '=', CategoryActive::Yes)->get();
