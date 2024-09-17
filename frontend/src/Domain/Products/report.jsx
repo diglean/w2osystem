@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 
-import NavBar from "../../Components/NavBar.jsx";
-
 import styles from "./styles/report.module.css";
 
 import ROOT from "../../root";
 
 const Report = () => {
-  const [topTenProducts, setTopTenProducts] = useState(null);
+  const [topTenProducts, setTopTenProducts] = useState([{}]);
   const [qtyProducts, setQtyProducts] = useState(null);
-  const [topThreeCategories, setTopThreeCategories] = useState(null);
+  const [topThreeCategories, setTopThreeCategories] = useState([{}]);
 
   useEffect(() => {
     fetch(ROOT + "/product/report")
@@ -23,30 +21,35 @@ const Report = () => {
 
   return (
     <div>
-      <NavBar />
       <h1>Relatório de produtos</h1>
       <div className={styles.main}>
         <div>
           <span>Top 10 produtos</span>
-          {topTenProducts &&
+          {topTenProducts.length === 0 ? (
+            <h1>0</h1>
+          ) : (
             topTenProducts.map((item) => {
               return (
                 <h1>
                   {item.product_name}: {item.qty}
                 </h1>
               );
-            })}
+            })
+          )}
         </div>
         <div>
           <span>Top 3 categorias</span>
-          {topThreeCategories &&
+          {topThreeCategories.length === 0 ? (
+            <h1>0</h1>
+          ) : (
             topThreeCategories.map((item) => {
               return (
                 <h1>
                   {item.category_name}: {item.qty}
                 </h1>
               );
-            })}
+            })
+          )}
         </div>
         <div>
           <span>Qtde produtos cadastrados</span>

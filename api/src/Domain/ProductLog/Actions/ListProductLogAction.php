@@ -15,6 +15,6 @@ class ListProductLogAction
 
     public function execute()
     {
-        $this->productLogModel->with('product')->paginate(10);
+        return $this->productLogModel->with('product')->paginate(10);
     }
 }

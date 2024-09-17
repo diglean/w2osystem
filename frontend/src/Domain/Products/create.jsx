@@ -2,7 +2,6 @@ import { Fragment, useEffect, useState } from "react";
 
 import Form from "../../Components/Form.jsx";
 import Input from "../../Components/Input.jsx";
-import NavBar from "../../Components/NavBar.jsx";
 import BasicSelect from "../../Components/Select.jsx";
 import Button from "../../Components/Button.jsx";
 import BasicDatePicker from "../../Components/Datepicker.jsx";
@@ -28,14 +27,19 @@ const Create = () => {
   const { toastSuccess, toastError } = useToast();
 
   useEffect(() => {
-    // fetch(`${ROOT}/category/list`)
-    //   .then((res) => res.json())
-    //   .then((data) => setOptions(data));
+    fetch(`${ROOT}/category/list`)
+      .then((res) => res.json())
+      .then((data) => setOptions(data));
   }, []);
 
   const handleCreateProduct = () => {
-    if (!validateData()) {
-      return false;
+    if (overdueDt !== "") {
+      const momentOverdueDt = moment(overdueDt);
+
+      if (momentOverdueDt.isBefore(moment().startOf("day"))) {
+        toastError("Data de vencimento inválida!");
+        return;
+      }
     }
 
     let action = "create";
@@ -58,34 +62,18 @@ const Create = () => {
       body.id = id;
     }
 
-    // fetch(`${ROOT}/product/${action}`, {
-    //   method,
-    //   body: JSON.stringify(body),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setId(data.id);
-    //     toastSuccess(toastMessage);
-    //   });
-  };
-
-  const validateData = () => {
-    const momentOverdueDt = moment(overdueDt);
-
-    if (momentOverdueDt.isBefore(moment().startOf("day"))) {
-      toastError("Data de vencimento inválida!");
-      return;
-    }
-
-    if (price !== "") {
-      if (price < 0) {
-        toastError("Preço inválido!");
-        return;
-      }
-    }
+    fetch(`${ROOT}/product/${action}`, {
+      method,
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setId(data.id);
+        toastSuccess(toastMessage);
+      });
   };
 
   const handleChangeName = (value) => {
@@ -101,8 +89,7 @@ const Create = () => {
   };
 
   const handleChangePrice = (value) => {
-    let newValue = value.replace(/[0-9]/g, "");
-    newValue = newValue.replace(/\D/g, "");
+    let newValue = value.replace(/\D/g, "");
     newValue = newValue.replace(/(\d)(\d{2})$/, "$1,$2");
     newValue = newValue.replace(/(?=(\d{3})+(\D))\B/g, ".");
     setPrice(newValue);
@@ -114,7 +101,6 @@ const Create = () => {
 
   return (
     <div>
-      <NavBar />
       <div className={styles.main}>
         <div className={styles.main_form}>
           <h1>{id ? "Atualizar produto" : "Criar produto"}</h1>

@@ -1,8 +1,24 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin: 0 10px;
+}
+
+.main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.main table, th, td {
+  border: 1px solid #ddd;
+}
+
+.main th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+.main th {
+  background-color: #f2f2f2;
 }
 
 .pagination {

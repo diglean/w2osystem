@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 import DataTable from "../../Components/DataTable";
-import NavBar from "../../Components/NavBar";
 import Button from "../../Components/Button";
 
 import useToast from "../../Hooks/useToast.jsx";
@@ -57,6 +56,15 @@ const Dashboard = () => {
     setProductSelected(data);
   };
 
+  const handlePageChange = (url) => {
+    if (url) {
+      const page = new URL(url, window.location.origin).searchParams.get(
+        "page"
+      );
+      setCurrentPage(Number(page));
+    }
+  };
+
   return (
     <div>
       {options && (
@@ -68,13 +76,12 @@ const Dashboard = () => {
           options={options}
         />
       )}
-      <NavBar />
       <h1>Dashboard</h1>
       <span>Produtos cadastrados</span>
       {dataTableData && (
         <DataTable
           data={dataTableData}
-          cbChangePage={setCurrentPage}
+          cbChangePage={handlePageChange}
           currentPage={currentPage}
         />
       )}

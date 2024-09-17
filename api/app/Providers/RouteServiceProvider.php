@@ -29,8 +29,9 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            Route::group([], base_path('routes/Domain/Product/product.php'));
             Route::group([], base_path('routes/Domain/Category/category.php'));
+            Route::group([], base_path('routes/Domain/Product/product.php'));
+            Route::group([], base_path('routes/Domain/ProductLog/productlog.php'));
         });
     }
 }

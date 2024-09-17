@@ -1,11 +1,10 @@
 import { DataGrid } from "@mui/x-data-grid";
 import styles from "./styles/DataTable.module.css";
 
-import { fmtoDt } from "../Library/format";
+import { decodeHtml, fmtoDt } from "../Library/format";
 
 const DataTable = ({ data, cbChangePage }) => {
   const handlePageChange = (page) => {
-    console.log(page);
     cbChangePage(page);
   };
 
@@ -24,33 +23,39 @@ const DataTable = ({ data, cbChangePage }) => {
           </tr>
         </thead>
         <tbody>
-          {data.rows.data.map((item) => {
-            return (
-              <tr>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.category.name}</td>
-                <td>{item.description}</td>
-                <td>R$ {item.price}</td>
-                <td>
-                  {item.overdue_dt
-                    ? fmtoDt(item.overdue_dt)
-                    : "Sem data especificada"}
-                </td>
-                <td>{fmtoDt(item.created_at)}</td>
-              </tr>
-            );
-          })}
+          {data.rows.data.length === 0 ? (
+            <tr>
+              <td colspan="100%">Não há dados a serem exibidos</td>
+            </tr>
+          ) : (
+            data.rows.data.map((item) => {
+              return (
+                <tr>
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.category.name}</td>
+                  <td>{item.description}</td>
+                  <td>R$ {item.price}</td>
+                  <td>
+                    {item.overdue_dt
+                      ? fmtoDt(item.overdue_dt)
+                      : "Sem data especificada"}
+                  </td>
+                  <td>{fmtoDt(item.created_at)}</td>
+                </tr>
+              );
+            })
+          )}
         </tbody>
       </table>
       <div className={styles.pagination}>
         {data.rows.links.map((link) => (
           <button
             key={link.label}
-            onClick={() => handlePageChange(link.label)}
+            onClick={() => handlePageChange(link.url)}
             disabled={!link.url}
           >
-            {link.label}
+            {decodeHtml(link.label)}
           </button>
         ))}
       </div>
